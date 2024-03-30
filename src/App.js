@@ -1,25 +1,50 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import './styles.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SignUp from './SignUp';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Define your routes */}
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
+  // const [todoItems, settodoItems] = useState([
+  //   { id: 1, text: 'Learn React' },
+  //   { id: 2, text: 'Build a to-do list' },
+  //   { id: 3, text: 'Practice coding' }
+  // ]);
+  // const [newText, setNewText] = useState('')
+  // function textOnChangeHandler(e) {
+  //   const newText = e.target.value;
+  //   setNewText(newText);
+  // }
+  // function onSumbitHandler(e) {
+  //   e.preventDefault();
+  //   settodoItems([...todoItems, { id: todoItems.length + 1, text: newText }]);
+  //   setNewText('');
+  // }
+  // function deleteItemHandler(itemId) {
+  //   settodoItems(todoItems.filter(item => item.id!== itemId));
+  // }
+  // return (
+  //   <div className="App">
+  //     <ul>
+  //       {todoItems.map(item => (
+  //         <li key={item.id}>{item.text} <button onClick={() => deleteItemHandler(item.id)}>Delete </button></li>
+  //       ))}
+  //     </ul>
+  //     <form onSubmit={onSumbitHandler}>
+  //       <input type="text" onChange={textOnChangeHandler} value = {newText} />
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   </div>
+  // );
 }
 
 export default App;
