@@ -4,6 +4,10 @@ import { useState } from 'react';
 import './styles.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUp from './SignUp';
+import Product from './Product';
+import ProductDropdown from './SearchProduct';
+import SelectedProducts from './SelectedProducts';
+import LogIn from './LogIn';
 
 function App() {
   return (
@@ -11,6 +15,10 @@ function App() {
       <Routes>
         {/* Define your routes */}
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/products" element={<Product />} />
+        <Route path="/products/all" element={<ProductDropdown />} />
+        <Route path="/products/selected" element={<SelectedProducts />} />
+        <Route path="/login" element={<LogIn />} />
       </Routes>
     </Router>
   );

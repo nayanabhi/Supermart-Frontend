@@ -67,3 +67,30 @@ body {
     flex: 0 0 48%; /* Adjust the width as needed */
   }
   
+
+  .product-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .product-name {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .product-description {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #666;
+  }
+  

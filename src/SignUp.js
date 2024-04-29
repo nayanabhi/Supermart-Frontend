@@ -30,8 +30,9 @@ function SignUp() {
     try {
         // Make API call here
         const response = await axios.post('http://localhost:3000/users/createUser', formData);
-        console.log('API response:', response.data);
-        localStorage.setItem("token", response.data);
+        const token = await axios.post('http://localhost:3000/auth/login', {username: response?.data?.username, password:response?.data?.password});
+        console.log('API response:', token.data);
+        localStorage.setItem("token", token.data.token);
         // Optionally, perform any other actions based on the API response
     } catch (error) {
         console.error('Error calling API:', error);
