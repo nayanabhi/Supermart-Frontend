@@ -37,60 +37,6 @@ const defaultTheme = createTheme();
 
 export default function ForgetPassword() {
 
-// const nodemailer = require('nodemailer');
-
-// // Generate a random secret key (replace this with your own logic)
-// const generateSecretKey = () => {
-//   return Math.random().toString(36).substring(2, 10); // Generate an 8-character random string
-// };
-
-// // Send email with secret key
-// const sendVerificationEmail = async (email, secretKey) => {
-//   // Create a Nodemailer transporter
-//   let transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//   auth: {
-//     user: 'nayanabhishek789@gmail.com',
-//     pass: 'nayan.710'
-//   }
-//   });
-
-//   // Send email
-//   await transporter.sendMail({
-//     from: 'nayanabhishek789@gmail.com',
-//     to: email,
-//     subject: 'Email Verification',
-//     text: `Your secret key for email verification is: ${secretKey}`
-//   });
-// };
-
-// // Compare provided key with the one saved in the database
-// const compareSecretKeys = (providedKey, savedKey) => {
-//   return providedKey === savedKey;
-// };
-
-// // Example usage
-// const userEmailAddress = 'nayanabhishek710@gmail.com';
-// const secretKey = generateSecretKey();
-
-// Save secret key in database along with user email address
-// (Replace this with your database logic)
-
-// Send email containing secret key
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -109,28 +55,8 @@ export default function ForgetPassword() {
             const email = data.get('email');
             setEmail(email);
             setIsOTPSent(!isOTPSent);
-                // sendVerificationEmail(userEmailAddress, secretKey)
-                //   .then(() => {
-                //     console.log('Email sent successfully!');
-                //     // Now wait for the user to input the secret key
-                //   })
-                //   .catch((error) => {
-                //     console.error('Error sending email:', error);
-                //   });
+  
         }else {
-          // compareSecretKeys(data.get('otp'), secretKey)
-          //   .then((isMatch) => {
-          //     if (isMatch) {
-          //       console.log('Secret keys match! Proceed with verification.');
-          //       // Proceed with desired action (e.g., password reset, account activation)
-          //     } else {
-          //       console.log('Secret keys do not match. Verification failed.');
-          //       // Handle verification failure
-          //     }
-          //   })
-          //   .catch((error) => {
-          //     console.error('Error comparing secret keys:', error);
-          //   });
             const newPassword = data.get('newPassword');
             const confirmPassword = data.get('confirmPassword');
             if(newPassword === confirmPassword) {
