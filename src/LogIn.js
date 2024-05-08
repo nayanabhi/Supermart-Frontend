@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function LogIn() {
+    const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -22,15 +24,14 @@ function LogIn() {
     // Add your sign-up logic here
     try {
         // Make API call here
-        const token = await axios.post('http://localhost:3000/auth/login', formData);
-        console.log('API response:', token.data);
+        const token = await axios.post('http://localhost:3000/auth/signin', formData);
         localStorage.setItem("token", token.data.token);
+        navigate('/products/all')
         // Optionally, perform any other actions based on the API response
     } catch (error) {
         console.error('Error calling API:', error);
         // Optionally, handle errors or display error messages to the user
     }
-    console.log('Form submitted:', formData);
   };
 
   return (
@@ -47,7 +48,7 @@ function LogIn() {
         </div>
       </div>
     </div>
-    <div className="button-container">
+    <div>
       <button type="submit">Log In</button>
     </div>
   </form>

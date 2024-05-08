@@ -3,7 +3,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
+import { useNavigate } from 'react-router-dom';
+
 function SignUp() {
+
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -30,15 +35,15 @@ function SignUp() {
     try {
         // Make API call here
         const response = await axios.post('http://localhost:3000/users/createUser', formData);
-        const token = await axios.post('http://localhost:3000/auth/login', {username: response?.data?.username, password:response?.data?.password});
+        const token = await axios.post('http://localhost:3000/auth/signin', {username: response?.data?.username, password:response?.data?.password});
         console.log('API response:', token.data);
         localStorage.setItem("token", token.data.token);
+        navigate('/products/all')
         // Optionally, perform any other actions based on the API response
     } catch (error) {
         console.error('Error calling API:', error);
         // Optionally, handle errors or display error messages to the user
     }
-    console.log('Form submitted:', formData);
   };
 
   return (

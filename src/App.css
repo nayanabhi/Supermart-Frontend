@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+
+.product-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust column size as needed */
+  gap: 20px;
+  padding: 20px;
+}
