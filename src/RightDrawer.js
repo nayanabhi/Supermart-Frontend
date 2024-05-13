@@ -2,14 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
@@ -33,18 +25,16 @@ export default function AnchorTemporaryDrawer({productId, open, onClose}) {
         price
     }
     const storedToken = localStorage.getItem('token');
-    const response = await axios.post('http://localhost:3000/users/updateProductStatus', formData, {
+    await axios.post('http://localhost:3000/users/updateProductStatus', formData, {
     headers: {
         'Authorization': `Bearer ${storedToken}`,
         'Content-Type': 'application/json'
     }
     });
-    // setStatus(event.target.checked);
 
   };
 
   useEffect(() => {
-    // Fetch initial status and price from database
     async function fetchInitialData() {
       try {
         const storedToken = localStorage.getItem('token');
@@ -94,40 +84,7 @@ export default function AnchorTemporaryDrawer({productId, open, onClose}) {
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-      role="presentation"
-      onClick={onClose}
-      onKeyDown={onClose}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+  
   if(!initialDataFetched) return null;
 
   return (
@@ -141,7 +98,7 @@ export default function AnchorTemporaryDrawer({productId, open, onClose}) {
             onClose={onClose}
           >
             {/* {list(anchor)} */}
-            <Box sx={{ p: 2 }}>
+            <Box sx={{ p: 5 }}>
         <div>
           <label htmlFor="status">Availability Status:</label>
           <Switch
@@ -158,6 +115,7 @@ export default function AnchorTemporaryDrawer({productId, open, onClose}) {
             type="number"
             value={price}
             onChange={handlePriceChange}
+            sx={{ marginTop: '20px' }}
           />
         </div>
 
@@ -166,6 +124,7 @@ export default function AnchorTemporaryDrawer({productId, open, onClose}) {
             id="submit"
             variant="contained" // Add variant prop
             onClick={handleSubmit}
+            sx={{ marginTop: '20px' }}
           >
             Save
           </Button>

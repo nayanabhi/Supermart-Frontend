@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import IconButton from '@mui/material/IconButton';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,9 +27,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchBox from './SearchBox';
 import InputBase from '@mui/material/InputBase';
 
-const drawerWidth = 240;
+const drawerWidth = 225;
 
 export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
+  const location = useLocation()
     const navigate = useNavigate()
   const drawrItems = [{name: 'Add Products', link: '/products/all', icon: AddIcon}, {name: 'Your Products', link: '/products/selected', icon: ShoppingCartIcon}, {name: 'Check Price', link: '/checkPrice', icon: PriceCheckIcon}];
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -67,11 +68,11 @@ export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, backgroundColor: '#4caf50' }}
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, backgroundColor: '#E6E6FA' }}
         
       >
         <Toolbar>
-        {showSearchBar && <InputBase onKeyDown={handleKeyPress} fullWidth placeholder="Search for products, brands and more" />}
+        {showSearchBar && <InputBase style={{ color: '#000000' }} onKeyDown={handleKeyPress} fullWidth placeholder="Search for products, brands and more" />}
         <div style = {{flexGrow: 1}}/>
         <Button
           aria-controls="menu"
@@ -80,20 +81,21 @@ export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
           color="inherit"
         >
             
-          <ExpandMoreRoundedIcon />
+          <ExpandMoreRoundedIcon style={{ color: '#E0479E' }} />
         </Button>
         <Menu
           id="menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
+          
         >
-          <MenuItem onClick={handleProfile}>Profile</MenuItem>
-          <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+          <MenuItem style={{ color: '#E0479E' }} onClick={handleProfile}>Profile</MenuItem>
+          <MenuItem style={{ color: '#E0479E' }} onClick={handleSignOut}>Sign Out</MenuItem>
         </Menu>
       </Toolbar>
       </AppBar>
-      <Drawer anchor="top" open={isDrawerOpen} onClose={toggleDrawer} >
+      <Drawer anchor="top" open={isDrawerOpen} onClose={toggleDrawer} style={{ textDecoration: 'none', color: '#E0479E' }} >
         <List>
           <ListItem button onClick={toggleDrawer}>
             <ListItemText primary="Profile" />
@@ -110,7 +112,7 @@ export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            bgcolor: '#4caf50'
+            bgcolor: '#E6E6FA'
           },
         }}
         variant="permanent"
@@ -120,7 +122,17 @@ export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
         <Divider />
         <List>
           {drawrItems.map((text, index) => (
-            <Link to={text.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+            location.pathname.includes(text.link) ?
+            <Link to={text.link} style={{ textDecoration: 'none', color: '#E0479E' }}>
+            <ListItem key={text.name} disablePadding>
+            <ListItemButton>
+                <ListItemIcon>
+                <text.icon />
+                </ListItemIcon>
+                <ListItemText primary={text.name} />
+                </ListItemButton>
+            </ListItem>
+            </Link>: <Link to={text.link} style={{ textDecoration: 'none', color: '#5941A9' }}>
             <ListItem key={text.name} disablePadding>
             <ListItemButton>
                 <ListItemIcon>

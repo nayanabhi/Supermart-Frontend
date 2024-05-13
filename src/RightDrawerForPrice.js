@@ -1,17 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import Select from '@mui/material/Select';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -22,8 +12,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
     const navigate = useNavigate();
-    const [status, setStatus] = React.useState(false); // State for status (on/off)
   const [price, setPrice] = React.useState(0); // State for price
+  const [address, setAddress] = React.useState(''); 
+  const [contact, setContact] = React.useState(''); 
   const [initialDataFetched, setInitialDataFetched] = React.useState(false);
   const [selectedSeller, setSelectedSeller] = React.useState({
     userId: '',
@@ -35,13 +26,14 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
   const [sellers, setSellers] = React.useState([]);
 
 
-  const handleStatusChange = (event) => {
-    setStatus(event.target.checked);
-  };
+  
   const handleSellerChange = async(event) => {
     
     console.log({4343242: event.target.value});
     const userId = event.target.value.id;
+    const userAddress = event.target.value.address;
+    const userContact = event.target.value.phone;
+    console.log({userContact, userAddress})
     const storedToken = localStorage.getItem('token');
     const response = await axios.get(`http://localhost:3000/users/getProductStatus/${userId}/${productId}`, {
     headers: {
@@ -53,27 +45,13 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
     if(response?.data?.available){
         setSelectedSeller(event.target.value);
         setPrice(response.data.price);
+        setAddress(userAddress);
+        setContact(userContact);
     } else {
         toast.error('Product unavailable for this seller');
+        setSelectedSeller({});
     }
   }
-
-  const handleSubmit = async(event) => {
-    // const formData = {
-    //     productId,
-    //     status,
-    //     price
-    // }
-    // const storedToken = localStorage.getItem('token');
-    // const response = await axios.post('http://localhost:3000/users/updateProductStatus', formData, {
-    // headers: {
-    //     'Authorization': `Bearer ${storedToken}`,
-    //     'Content-Type': 'application/json'
-    // }
-    // });
-    // setStatus(event.target.checked);
-
-  };
 
   useEffect(() => {
     // Fetch initial status and price from database
@@ -106,21 +84,6 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
     }
   }, [open, initialDataFetched]);
 
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
   if(!initialDataFetched) return null;
 
   return (
@@ -133,7 +96,7 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
             onClose={onClose}
           >
             {/* {list(anchor)} */}
-            <Box sx={{ p: 2 }}>
+            <Box sx={{ p: 12 }}>
             <div>
           <label htmlFor="seller">Select Seller:</label>
           <Select
@@ -161,6 +124,35 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
                 InputProps={{
                     readOnly: true, // Make the TextField read-only
                 }}
+                sx={{ marginTop: '20px' }}
+              />
+            </div>
+
+            <div>
+              <TextField
+                id="contact"
+                label="Contact Number"
+                type="string"
+                value= { contact }
+                fullWidth
+                InputProps={{
+                    readOnly: true, // Make the TextField read-only
+                }}
+                sx={{ marginTop: '20px' }}
+              />
+            </div>
+
+            <div>
+              <TextField
+                id="address"
+                label="Address"
+                type="string"
+                value= { address }
+                fullWidth
+                InputProps={{
+                    readOnly: true, // Make the TextField read-only
+                }}
+                sx={{ marginTop: '20px' }}
               />
             </div>
           </>

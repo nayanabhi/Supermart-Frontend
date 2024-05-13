@@ -1,19 +1,12 @@
 // IMPORTS
 import React, { useState } from "react";
 import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
-import IconButton from "@mui/material/IconButton";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
 import CardContent from "@mui/material/CardContent";
-import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import CustomInput from "./CustomInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -21,11 +14,10 @@ import { useNavigate } from "react-router-dom";
 //APP
     export default function SettingsCard({email, password, firstName, lastName, userName, gender, phone}) {
   //TAB STATES
-  const [value, setValue] = React.useState("one");
   const navigate = useNavigate()
 
   const handleChange = (event) => {
-    if(edit.isEdit == false) {
+    if(edit.isEdit === false) {
         const storedToken = localStorage.getItem('token');
     console.log({storedToken})
     axios.put(`http://localhost:3000/users/updateUser`, user, {
