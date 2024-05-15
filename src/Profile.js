@@ -65,7 +65,7 @@ if(mainUser.username === '') {
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}> {/* Adjust layout to display PermanentDrawerTop and product list */}
-          <PermanentDrawerTop showSearchBar = {false}/> {/* Render PermanentDrawerTop component */}
+          <PermanentDrawerTop firstLetter = {mainUser.firstName[0]} showSearchBar = {false}/> {/* Render PermanentDrawerTop component */}
       
           {/* BACKGROUND */}
           <Grid container direction="column" sx={{ flexGrow: 1, maxWidth: '980px', margin: '0 auto' }}>

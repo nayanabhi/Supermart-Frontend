@@ -13,6 +13,41 @@ function CheckPrice() {
   const [refetchTrigger, setRefetchTrigger] = useState(false);
   const [searchText, setSearchText] = useState("");
 
+  const [mainUser, setMainUser] = useState({
+    username: '',
+    phone: '',
+    address: '',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+  });
+  const [refetchTriggerForCurrentUser, setRefetchTriggerForCurrentUser] = useState(false);
+  useEffect(() => {
+    // Fetch categories from backend API
+    const storedToken = localStorage.getItem('token');
+    axios.get('http://localhost:3000/users/id', {
+      headers: {
+        'Authorization': `Bearer ${storedToken}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+          const {username, phone, address, email, password, firstName, lastName} = response.data; 
+          setMainUser({username, phone, address, email, password, firstName, lastName});
+      })
+      .catch(error => {
+        console.log({43435: error, error})
+        if(error.response.data.message === 'TokenExpiredError') {
+          localStorage.removeItem('token');
+          navigate('/signin')
+          return;
+        }
+        console.error('Error fetching categories:', error);
+      });
+  }, [refetchTriggerForCurrentUser]);
+
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     axios.get(`http://localhost:3000/products/all?searchText=${searchText}`, {
@@ -38,7 +73,7 @@ function CheckPrice() {
   return (
 
     <div style={{ display: 'flex' }}> {/* Adjust layout to display PermanentDrawerLeft and product list */}
-      <PermanentDrawerLeft setSearchText= {setSearchText} showSearchBar={true} /> {/* Render PermanentDrawerLeft component */}
+      <PermanentDrawerLeft firstLetter = {mainUser.firstName[0]} setSearchText= {setSearchText} showSearchBar={true} /> {/* Render PermanentDrawerLeft component */}
       <div className="product-list-container" style={{ marginRight: '35px', marginTop: '130px', flexGrow: 1 }}> {/* Adjust marginLeft and flexGrow */}
         {products.map((product, index) => (
           <MultiActionAreaCard productId={product.id} productName={product.name} productDescription={product.description} type="All" imageLink = {product.imageLink} weight = {product.weight}/>

@@ -148,6 +148,7 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
                 label="Address"
                 type="string"
                 value= { address }
+                multiline
                 fullWidth
                 InputProps={{
                     readOnly: true, // Make the TextField read-only

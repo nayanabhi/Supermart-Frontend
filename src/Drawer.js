@@ -26,10 +26,11 @@ import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchBox from './SearchBox';
 import InputBase from '@mui/material/InputBase';
+import Avatar from '@mui/material/Avatar';
 
 const drawerWidth = 225;
 
-export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
+export default function PermanentDrawerLeft({firstLetter, setSearchText, showSearchBar}) {
   const location = useLocation()
     const navigate = useNavigate()
   const drawrItems = [{name: 'Add Products', link: '/products/all', icon: AddIcon}, {name: 'Your Products', link: '/products/selected', icon: ShoppingCartIcon}, {name: 'Check Price', link: '/checkPrice', icon: PriceCheckIcon}];
@@ -81,7 +82,7 @@ export default function PermanentDrawerLeft({setSearchText, showSearchBar}) {
           color="inherit"
         >
             
-          <ExpandMoreRoundedIcon style={{ color: '#E0479E' }} />
+          <Avatar sx={{ bgcolor: '#5941A9' }}>{firstLetter}</Avatar>
         </Button>
         <Menu
           id="menu"

@@ -65,9 +65,10 @@
 // export default Product;
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PermanentDrawerLeft from './Drawer';
+import { useNavigate } from 'react-router-dom';
 
 function Product() {
   const [formData, setFormData] = useState({
@@ -76,6 +77,42 @@ function Product() {
     imageLink: '',
     weight: '',
   });
+
+
+  const [mainUser, setMainUser] = useState({
+    username: '',
+    phone: '',
+    address: '',
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+  });
+  const [refetchTrigger, setRefetchTrigger] = useState(false);
+  const navigate = useNavigate()
+  useEffect(() => {
+    // Fetch categories from backend API
+    const storedToken = localStorage.getItem('token');
+    axios.get('http://localhost:3000/users/id', {
+      headers: {
+        'Authorization': `Bearer ${storedToken}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+          const {username, phone, address, email, password, firstName, lastName} = response.data; 
+          setMainUser({username, phone, address, email, password, firstName, lastName});
+      })
+      .catch(error => {
+        console.log({43435: error, error})
+        if(error.response.data.message === 'TokenExpiredError') {
+          localStorage.removeItem('token');
+          navigate('/signin')
+          return;
+        }
+        console.error('Error fetching categories:', error);
+      });
+  }, [refetchTrigger]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,7 +141,7 @@ function Product() {
 
   return (
     <div style={{ display: 'flex' }}>
-      <PermanentDrawerLeft showSearchBar = {false}/>
+      <PermanentDrawerLeft firstLetter={mainUser.firstName[0]} showSearchBar = {false}/>
       <form onSubmit={handleSubmit} style={{ marginLeft: '20px', marginRight: '40px', marginTop: '170px', flexGrow: 1 }}>
         <div className="form-group">
           <input type="text" name="name" placeholder="Product Name" value={formData.name} onChange={handleChange} required />
