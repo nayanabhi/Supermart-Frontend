@@ -39,7 +39,7 @@ export default function MultiActionAreaCard({productId, productName, productDesc
           <Typography gutterBottom variant="h5" component="div">
             {weight}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography style={{ maxHeight: '4.5em', overflow: 'hidden' }} variant="body2" color="text.secondary">
             {productDescription}
           </Typography>
         </CardContent>

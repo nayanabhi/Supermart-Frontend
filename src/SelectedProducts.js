@@ -99,8 +99,8 @@ setRefetchTrigger(true);
   return (
 
     <div style={{ display: 'flex' }}> {/* Adjust layout to display PermanentDrawerLeft and product list */}
-      <PermanentDrawerLeft firstLetter = {mainUser.firstName[0]} setSearchText= {setSearchText} showSearchBar={true} /> {/* Render PermanentDrawerLeft component */}
-      <div className="product-list-container" style={{ marginRight: '35px', marginTop: '130px', flexGrow: 1 }}> {/* Adjust marginLeft and flexGrow */}
+      <PermanentDrawerLeft firstLetter = {mainUser.firstName[0]} setSearchText= {setSearchText} showSearchBar={true} />
+      <div className="product-list-container" style={{ marginRight: '35px', marginTop: '130px', flexGrow: 1 }}> 
         {products.map((product, index) => (
           <MultiActionAreaCard productId={product.id} productName={product.name} productDescription={product.description} type="Remove" handleProductSelect={handleProductSelect} imageLink = {product.imageLink} weight = {product.weight}/>
         ))}

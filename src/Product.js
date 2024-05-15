@@ -69,6 +69,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PermanentDrawerLeft from './Drawer';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Product() {
   const [formData, setFormData] = useState({
@@ -102,6 +104,7 @@ function Product() {
       .then(response => {
           const {username, phone, address, email, password, firstName, lastName} = response.data; 
           setMainUser({username, phone, address, email, password, firstName, lastName});
+          
       })
       .catch(error => {
         console.log({43435: error, error})
@@ -133,7 +136,9 @@ function Product() {
         }
       });
       console.log({ 23434: response?.data });
+      toast.success('Product added successfully')
     } catch (error) {
+      toast.error('Failed to add product')
       console.error('Error calling API:', error);
     }
     console.log('Form submitted:', formData);
@@ -159,6 +164,7 @@ function Product() {
           <button type="submit">Add Product</button>
         </div>
       </form>
+      <ToastContainer position='top-right'></ToastContainer>
     </div>
   );
 }
