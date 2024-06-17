@@ -28,12 +28,9 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
 
   
   const handleSellerChange = async(event) => {
-    
-    console.log({4343242: event.target.value});
     const userId = event.target.value.id;
     const userAddress = event.target.value.address;
     const userContact = event.target.value.phone;
-    console.log({userContact, userAddress})
     const storedToken = localStorage.getItem('token');
     const response = await axios.get(`http://localhost:3000/users/getProductStatus/${userId}/${productId}`, {
     headers: {
@@ -41,7 +38,6 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
         'Content-Type': 'application/json'
     }
     });
-    console.log({543545: response.data})
     if(response?.data?.available){
         setSelectedSeller(event.target.value);
         setPrice(response.data.price);
@@ -58,7 +54,7 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
     async function fetchInitialData() {
       try {
         const storedToken = localStorage.getItem('token');
-        axios.get(`http://localhost:3000/users/all`, {
+        axios.get(`http://localhost:3000/users/getAvailableSellers/${productId}`, {
             headers: {
               'Authorization': `Bearer ${storedToken}`,
               'Content-Type': 'application/json'
@@ -68,7 +64,6 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
             setInitialDataFetched(true);
           })
           .catch(error => {
-            console.log({43435: error, error})
             if(error.response.data.message === 'TokenExpiredError') {
               localStorage.removeItem('token');
               navigate('/signin')

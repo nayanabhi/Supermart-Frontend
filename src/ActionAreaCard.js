@@ -24,26 +24,24 @@ export default function MultiActionAreaCard({productId, productName, productDesc
     <div>
       {(type === 'Remove') && <AnchorTemporaryDrawer productId = {productId} open={drawerOpen} onClose={handleCloseDrawer} />}
       {(type === 'All') && <AnchorTemporaryDrawerPrice productId = {productId} open={drawerOpen} onClose={handleCloseDrawer} />}
-    <Card sx={{ maxWidth: 345 }} onClick={handleClick}>
-      <CardActionArea>
+    <Card sx={{ maxWidth: 345, "&:hover": {backgroundColor: "#E6E6FA"} }} onClick={handleClick}>
         <CardMedia
           component="img"
-          height="140"
+          height="260"
           image={imageLink}
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography sx = {{ minHeight: "2.5em", maxHeight: "2.5em", overflow: 'hidden' }} gutterBottom variant="h5" component="div">
             {productName}
           </Typography>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography sx = {{ minHeight: "1.5em", maxHeight: "1.5em", overflow: 'hidden' }} gutterBottom variant="h5" component="div">
             {weight}
           </Typography>
-          <Typography style={{ maxHeight: '4.5em', overflow: 'hidden' }} variant="body2" color="text.secondary">
+          <Typography style={{ minHeight: '4.5em', maxHeight: '4.5em', overflow: 'hidden' }} variant="body2" color="text.secondary">
             {productDescription}
           </Typography>
         </CardContent>
-      </CardActionArea>
       {type !== 'All' && <CardActions>
         <Button size="small" color="primary" onClick={() => handleProductSelect(productId)}>
           {type} Product

@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function AnchorTemporaryDrawer({productId, open, onClose}) {
     const navigate = useNavigate();
@@ -25,12 +26,19 @@ export default function AnchorTemporaryDrawer({productId, open, onClose}) {
         price
     }
     const storedToken = localStorage.getItem('token');
-    await axios.post('http://localhost:3000/users/updateProductStatus', formData, {
-    headers: {
-        'Authorization': `Bearer ${storedToken}`,
-        'Content-Type': 'application/json'
+    try {
+      await axios.post('http://localhost:3000/users/updateProductStatus', formData, {
+      headers: {
+          'Authorization': `Bearer ${storedToken}`,
+          'Content-Type': 'application/json'
+      }
+      });
+      toast.success("Product status updated successfully");
+    }catch(error) {
+      toast.error("Failed to update status of product");
     }
-    });
+    
+
 
   };
 
