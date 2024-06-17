@@ -86,7 +86,7 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
             open={open}
             onClose={onClose}
           >
-            <Box sx={{ p: 10,  }}>
+            <Box sx={{ p: 10 }}>
             <Autocomplete
       disablePortal
       id="combo-box-demo"
@@ -94,11 +94,14 @@ export default function AnchorTemporaryDrawerPrice({productId, open, onClose}) {
       value = {selectedSeller}
       options={sellers}
       getOptionLabel={(option) => (option?.firstName ?? "") + " " + (option?.lastName ?? "")}
-      sx={{width: 250}}
+      sx={{width: 300}}
       renderInput={(params) => <TextField {...params} label="Select Seller" variant= "outlined" sx={{
         '& input': {
-            border: 'none'
+            border: 'none',
         },
+       '.MuiInputBase-input': {
+          height: '32px'
+        }
     }} />}
     />
         {selectedSeller?.id && (
