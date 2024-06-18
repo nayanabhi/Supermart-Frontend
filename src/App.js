@@ -1,6 +1,6 @@
 import './App.css';
 import './styles.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Product from './Product';
 import ProductDropdown from './SearchProduct';
 import SelectedProducts from './SelectedProducts';
@@ -21,6 +21,7 @@ function App() {
         <Route path="/products/all" element={<ProductDropdown />} />
         <Route path="/products/selected" element={<SelectedProducts />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/" element={<Navigate to="/signin" />} />
         <Route path="/drawer" element={<PermanentDrawerLeft />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
